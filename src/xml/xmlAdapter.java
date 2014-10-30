@@ -26,7 +26,20 @@ public class xmlAdapter {
     
     public void xmlData(){}
     
+    public void readXML(String fileNameAndPath){
+    }
     
+    public void writeXML(String fileNameAndPath){
+        try{
+            Element xmlElementRoot = new Element("WhackAMole");
+            Document xmlDocument = new Document(xmlElementRoot);
+            
+            // First Sub-Element is Player
+            Element xmlPlayer = new Element("Player");
+            
+        } catch (IOException ioe){
+        }
+    }
     
     
     
