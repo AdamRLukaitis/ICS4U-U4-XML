@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /*
  * xmlJFrame.java
@@ -9,18 +5,112 @@
  * Created on Oct 30, 2014, 4:06:55 PM
  */
 package xml;
-
+import java.util.ArrayList;
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.output.XMLOutputter;
 /**
  *
  * @author student1
+ * 
  */
-public class xmlJFrame extends javax.swing.JFrame {
+public class xmlJFrame extends javax.swing.JFrame
+{
+    
+    xmlAdapter XMLAdapter = new xmlAdapter();
 
     /** Creates new form xmlJFrame */
     public xmlJFrame() {
         initComponents();
+        xmlAdapter();
+        writeXML(xmlFileName);
     }
 
+        String xmlFileName = "xmltest1.xml";
+    String xmlValidFile = "xmlvalid1.xml";
+    
+            // Player Name
+        public String Name = "Player";
+        // Historical List of Scores
+        public ArrayList<Integer> HighScores = new ArrayList();
+        
+        public void dataGame(){
+
+        }
+    
+        public String getName() {
+            return Name;
+        }
+
+        public ArrayList<Integer> getHighScores() {
+            return HighScores;
+        }
+        
+        public String getHighScore(Integer whichScore) {
+            return HighScores.get(whichScore).toString();
+        }
+                
+        public void newScore(Integer newHighScore)
+        {
+            // add to list
+            HighScores.add(newHighScore);
+            // re-sort list
+
+            // push new stats? or have game stats pull them
+        }
+    
+    //dataGame data = new dataGame();
+
+    public void xmlAdapter() {
+        HighScores.add(1);
+        HighScores.add(2);
+        HighScores.add(3);
+        HighScores.add(4);
+        HighScores.add(5);
+        HighScores.add(6);
+        HighScores.add(7);
+        HighScores.add(8);
+        HighScores.add(9);
+        HighScores.add(10);
+        HighScores.add(11);
+        HighScores.add(12);
+    }
+
+    public void readXML(String fileNameAndPath) {
+    }
+
+    public void writeXML(String fileNameAndPath) {
+        System.out.println(HighScores.size());
+        Element xmlElementRoot = new Element("WhackAMole");
+        Document xmlDocument = new Document(xmlElementRoot);
+
+        // First Sub-Element is Player
+        Element xmlPlayer = new Element("Player");
+        xmlPlayer.setAttribute(new Attribute("id", "1"));
+        xmlPlayer.addContent(new Element("Name"));
+        Element xmlHighScores = new Element("HighScores");
+        xmlHighScores.addContent(new Element("Score1").setText(getHighScore(1)));
+
+        /*
+        xmlHighScores.addContent(new Element("2").setText(String.valueOf(getHighScore(2))));
+        xmlHighScores.addContent(new Element("3").setText(String.valueOf(getHighScore(3))));
+        xmlHighScores.addContent(new Element("4").setText(String.valueOf(getHighScore(4))));
+        xmlHighScores.addContent(new Element("5").setText(String.valueOf(getHighScore(5))));
+        xmlHighScores.addContent(new Element("6").setText(String.valueOf(getHighScore(6))));
+        xmlHighScores.addContent(new Element("7").setText(String.valueOf(getHighScore(7))));
+        xmlHighScores.addContent(new Element("8").setText(String.valueOf(getHighScore(8))));
+        xmlHighScores.addContent(new Element("9").setText(String.valueOf(getHighScore(9))));
+        xmlHighScores.addContent(new Element("10").setText(String.valueOf(getHighScore(10))));
+         */
+        xmlPlayer.addContent(xmlHighScores);
+        xmlDocument.getRootElement().addContent(xmlPlayer);
+
+        XMLOutputter xmlOutput = new XMLOutputter();
+
+
+    }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -30,17 +120,51 @@ public class xmlJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jButton1.setText("Write XML");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jButton2.setText("Read XML");
+
+        jButton3.setText("Read Valid XML");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 878, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -50,28 +174,6 @@ public class xmlJFrame extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(xmlJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(xmlJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(xmlJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(xmlJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -82,5 +184,10 @@ public class xmlJFrame extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
